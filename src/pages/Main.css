@@ -1,0 +1,37 @@
+.card-bar {
+  text-align: center;
+}
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #48464a;
+  height: 10vh;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+}
+.title {
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+.nav__list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  text-transform: uppercase;
+  margin: 0rem 1rem;
+}
+.nav__list-items {
+  cursor: pointer;
+  border-top: 4px transparent;
+  border-bottom: 4px transparent;
+  padding: 3px 0;
+  transition: all 0.3s ease;
+}
+.nav__list-items:hover {
+  border-top: 4px solid black;
+  border-bottom: 4px solid black;
+}

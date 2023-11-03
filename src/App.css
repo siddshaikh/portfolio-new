@@ -1,0 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Agbalumo&family=Mooli&family=Playpen+Sans&family=Poppins&family=Work+Sans:wght@300&family=Young+Serif&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Agbalumo", "Mooli", "Playpen Sans", "Poppins", "Work Sans",
+    "Young Serif", sans-serif;
+}
