@@ -4,6 +4,7 @@ import { PortContext } from "../../context/PortContextProvider";
 import { MdEmail } from "react-icons/md";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const { dynamicColor } = useContext(PortContext);
@@ -11,17 +12,24 @@ const Contact = () => {
   const [skillRate, setSkillRate] = useState(0);
   const [comment, setComment] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      const docRef = await addDoc(collection(db, "feedback"), {
-        email: email,
-        skillRate: Number(skillRate),
-        comment: comment,
-      });
-      console.log("document Written with id", docRef.id);
+      if (email || skillRate || comment) {
+        addDoc(collection(db, "feedback"), {
+          email: email,
+          skillRate: Number(skillRate),
+          comment: comment,
+        });
+        toast.success(`${email} Thank You For Feedback!`);
+        setEmail("");
+        setSkillRate(0);
+        setComment("");
+      } else {
+        toast.error("You are missing something!");
+      }
     } catch (error) {
-      console.log(error);
+      console.log({ error: error });
     }
   };
   return (
@@ -77,10 +85,9 @@ const Contact = () => {
         </button>
       </form>
       <div className="footer-box" style={{ backgroundColor: dynamicColor }}>
-        <span>
-          <MdEmail />
-        </span>
-        <span>siddeekshaikh97@gmail.com</span>
+        <MdEmail style={{ marginTop: 4 }} />
+
+        <p>siddeekshaikh97@gmail.com</p>
       </div>
     </div>
   );
