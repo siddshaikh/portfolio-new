@@ -35,3 +35,8 @@
   border-top: 4px solid black;
   border-bottom: 4px solid black;
 }
+@media (max-width: 720px) {
+  .nav__list {
+    gap: 1rem;
+  }
+}

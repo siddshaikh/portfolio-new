@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef } from "react";
 import "./Main.css";
 import Myself from "../components/Myself/Myself";
 import Projects from "../components/Projects/Projects";
@@ -8,18 +8,18 @@ import { PortContext } from "../context/PortContextProvider";
 import { dynamiCss } from "../global/dynamicCss";
 
 const Main = () => {
-  const [hoverNav, setHoverNav] = useState({
-    Myself: false,
-    Projects: false,
-    Skills: false,
-    Contact: false,
-  });
+  const navRefs = {
+    Myself: useRef(null),
+    Projects: useRef(null),
+    Skills: useRef(null),
+    Contact: useRef(null),
+  };
   const { activeLightTheme } = useContext(PortContext);
-  const handleHoverNav = (value) => {
-    setHoverNav((prevHoverNav) => ({
-      ...prevHoverNav,
-      [value]: true,
-    }));
+
+  const moveToTab = (sectionRef) => {
+    if (sectionRef && sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -47,11 +47,13 @@ const Main = () => {
             : dynamiCss.dark.second,
         }}
       >
-        <h1 className="title">Sidd</h1>
+        <h1 className="title" onClick={() => moveToTab(navRefs.Myself)}>
+          Sidd
+        </h1>
         <ul className="nav__list">
           <li
             className="nav__list-items"
-            onMouseOver={() => handleHoverNav("Myself")}
+            onClick={() => moveToTab(navRefs.Myself)}
             style={{
               borderColor: activeLightTheme
                 ? dynamiCss.light.first
@@ -62,42 +64,42 @@ const Main = () => {
           </li>
           <li
             className="nav__list-items"
-            onMouseOver={() => handleHoverNav("Projects")}
+            onClick={() => moveToTab(navRefs.Projects)}
           >
             Projects
           </li>
           <li
             className="nav__list-items"
-            onMouseOver={() => handleHoverNav("Skills")}
+            onClick={() => moveToTab(navRefs.Skills)}
           >
             Skills
           </li>
           <li
             className="nav__list-items"
-            onMouseOver={() => handleHoverNav("Contact")}
+            onClick={() => moveToTab(navRefs.Contact)}
           >
             Contact Me
           </li>
         </ul>
       </div>
-      {/* components with ref for scrolling */}
       <div
         style={{
           backgroundColor: activeLightTheme
             ? dynamiCss.light.first
             : dynamiCss.dark.first,
         }}
+        className="components"
       >
-        <div>
+        <div ref={navRefs.Myself}>
           <Myself />
         </div>
-        <div>
+        <div ref={navRefs.Projects} style={{ marginTop: "200px" }}>
           <Projects />
         </div>
-        <div>
+        <div ref={navRefs.Skills}>
           <Skills />
         </div>
-        <div>
+        <div ref={navRefs.Contact} style={{ marginTop: "200px" }}>
           <Contact />
         </div>
       </div>
